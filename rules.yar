@@ -5,3 +5,4 @@ rule EICAR_Test_File {
         $a
 }
  xcv=-5
+ 
