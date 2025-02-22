@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, jsonify
 from scanner_module import scan_file
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"
 
 ALLOWED_EXTENSIONS = {"exe", "pdf", "docx"}
 
@@ -23,15 +22,14 @@ def scan():
         return jsonify({"result": "⚠ No selected file!"}), 400
 
     if not allowed_file(file.filename):
-        return jsonify({"result": "❌ Invalid file type! Allowed: .exe, .zip, .docx"}), 400
+        return jsonify({"result": "❌ Invalid file type! Allowed: .exe, .pdf, .docx"}), 400
 
-    # Read file contents (without saving to disk)
-    file_data = file.read()
+    file_data = file.read()  # Read file into memory
 
-    # Scan the file data directly
+    # Scan the file using pefile
     result = scan_file(file_data)
 
-    return jsonify({"result": f"✅ Scan Result: {result}"})
+    return jsonify({"result": result})
 
 if __name__ == "__main__":
     app.run(debug=True)
