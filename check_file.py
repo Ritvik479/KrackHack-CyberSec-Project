@@ -26,8 +26,10 @@ def check_is_malicious(file_path, known_hashes):
 def check_file(file_to_scan):
     counter = 1
     while counter <= 6:
-        if check_is_malicious(file_to_scan, open(f"Malware-Hash-Database\\SHA256\\sha256_hashes_{counter}.txt","r")):
+        file_ = open(f"Malware-Hash-Database\\SHA256\\sha256_hashes_{counter}.txt","r")
+        if check_is_malicious(file_to_scan, file_.read() ):
             return True
         counter += 1
+        file_.close()
     return False
     
