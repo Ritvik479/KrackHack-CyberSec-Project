@@ -1,13 +1,51 @@
 /* General Styles */
 body {
-    background-color: #f8f9fa;
+    background-color: white;
     color: #333;
     transition: background 0.3s, color 0.3s;
 }
 
+/* Light Mode */
+.light-mode {
+    background-color: white !important;
+    color: #333 !important;
+}
+
+.light-mode .card {
+    background: white !important;
+    color: #333 !important;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cyberpunk Dark Mode */
+.dark-mode {
+    background-color: #0d0d0d !important;
+    color: #0ff !important;
+}
+
+.dark-mode .card {
+    background: rgba(20, 20, 20, 0.9);
+    color: #0ff;
+    border: 2px solid #0ff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.dark-mode .btn {
+    background-color: #0ff;
+    color: #000;
+    border: 2px solid #0ff;
+}
+
+.dark-mode .btn:hover {
+    background-color: #00bcd4;
+    border-color: #00bcd4;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+}
+
+/* Container */
 .container {
     max-width: 500px;
-    margin-top: 80px; /* Increased margin to move everything downward */
+    margin-top: 80px;
     text-align: center;
 }
 
@@ -18,33 +56,11 @@ body {
     border-radius: 12px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease-in-out;
-    margin-top: 20px; /* Added margin to move the box downward */
-}
-.card:hover {
-    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    margin-top: 20px;
 }
 
-/* Dark Mode Styles */
-.dark-mode {
-    background-color: #212529;
-    color: #f8f9fa;
-    transition: background 0.3s, color 0.3s;
-}
-.dark-mode .card {
-    background: #333;
-    color: #fff;
-    box-shadow: 0px 4px 12px rgba(255, 255, 255, 0.1);
-}
-.dark-mode .btn {
-    background-color: #0d6efd;
-    border: none;
-    color: white;
-}
-.dark-mode .btn:hover {
-    background-color: #0056b3;
-}
-.dark-mode .progress-bar {
-    background-color: #17a2b8;
+.card:hover {
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Dark Mode Toggle Button */
@@ -56,13 +72,19 @@ body {
     width: 160px;
     font-size: 16px;
     padding: 8px 12px;
-    margin: 20px auto; /* Increased margin to move the toggle downward */
+    margin: 20px auto;
     position: relative;
-    left: 17%; /* Shifted slightly more left */
+    left: 17%;
     transform: translateX(-50%);
+    border: 2px solid #0ff;
+    background: transparent;
+    color: #0ff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
-#darkModeToggle span {
-    font-size: 18px;
+
+.dark-mode #darkModeToggle {
+    background-color: #0ff;
+    color: #000;
 }
 
 /* Button Styling */
@@ -71,6 +93,7 @@ body {
     border-radius: 8px;
     transition: transform 0.2s ease-in-out;
 }
+
 .btn:hover {
     transform: scale(1.05);
 }
@@ -87,10 +110,17 @@ body {
     overflow: hidden;
     display: none;
 }
+
 .progress-bar {
     background-color: #007bff;
     width: 0%;
     transition: width 1s ease-in-out;
+}
+
+/* Cyberpunk Progress Bar */
+.dark-mode .progress-bar {
+    background-color: #0ff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
 }
 
 /* Scan Result */
@@ -101,16 +131,22 @@ body {
     border-radius: 8px;
     display: none;
 }
+
+/* Scan Safe */
 .scan-safe {
     background-color: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
 }
+
+/* Scan Danger */
 .scan-danger {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
+
+
 
 
 
