@@ -1,15 +1,10 @@
 from flask import Flask, render_template, request, jsonify
-import os
 from scanner_module import scan_file
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # For showing messages
+app.secret_key = "supersecretkey"
 
-UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = {"exe", "docx", "pdf", "txt"}
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {"exe", "pdf", "docx"}
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -30,14 +25,13 @@ def scan():
     if not allowed_file(file.filename):
         return jsonify({"result": "❌ Invalid file type! Allowed: .exe, .zip, .docx"}), 400
 
-    filename = secure_filename(file.filename)
-    filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-    file.save(filepath)
+    # Read file contents (without saving to disk)
+    file_data = file.read()
 
-    # Scan file
-    result = scan_file(filepath)
+    # Scan the file data directly
+    result = scan_file(file_data)
+
     return jsonify({"result": f"✅ Scan Result: {result}"})
 
 if __name__ == "__main__":
     app.run(debug=True)
-
