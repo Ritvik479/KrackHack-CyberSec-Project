@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from scanner_module import scan_file
-from check_file import check_file
+# from check_file import check_file
 
 app = Flask(__name__)
 
@@ -30,8 +30,8 @@ def scan():
     # Scan the file using pefile
     result = scan_file(file_data)
     
-    #Scan the file using hashfile
-    hash_result = check_file(file_data)
+    # Scan the file using hashfile
+    # hash_result = check_file(file_data)
 
     """if hash_result is true,
     the file is malicious"""

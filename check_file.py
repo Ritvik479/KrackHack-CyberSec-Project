@@ -32,4 +32,3 @@ def check_file(file_to_scan):
         counter += 1
         file_.close()
     return False
-    
