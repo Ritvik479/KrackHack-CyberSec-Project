@@ -56,31 +56,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (progress >= 100) {
                 clearInterval(interval);
-                loadingSpinner.style.display = "none";
-                displayScanResult();
+                uploadFile();
             }
         }, 500);
     });
 
-    function displayScanResult() {
-        progressContainer.style.display = "none";
-        scanResult.style.display = "block";
+    function uploadFile() {
+        const formData = new FormData(uploadForm);
 
-        let isSafe = Math.random() > 0.3; // 70% chance it's safe
+        fetch("/scan", {
+            method: "POST",
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            loadingSpinner.style.display = "none";
+            progressContainer.style.display = "none";
+            scanResult.style.display = "block";
 
-        if (isSafe) {
-            scanResult.className = "scan-safe";
-            scanResult.textContent = "✅ No malware detected. Your file is safe!";
-        } else {
+            if (data.status === "✅ File appears safe.") {
+                scanResult.className = "scan-safe";
+                scanResult.textContent = data.status;
+            } else {
+                scanResult.className = "scan-danger";
+                scanResult.textContent = data.status;
+            }
+        })
+        .catch(error => {
+            loadingSpinner.style.display = "none";
+            progressContainer.style.display = "none";
+            scanResult.style.display = "block";
             scanResult.className = "scan-danger";
-            scanResult.textContent = "⚠️ Malware detected! Please delete this file.";
-        }
+            scanResult.textContent = "An error occurred during scanning.";
+            console.error("Error:", error);
+        });
     }
 });
-
-
-
-
-
-
-
