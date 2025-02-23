@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify
-import hashlib
 from check_file import file_check, calculate_file_hash  # Import only file_check function
 
 app = Flask(__name__)

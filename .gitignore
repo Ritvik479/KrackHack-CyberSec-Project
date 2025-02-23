@@ -1,3 +1,4 @@
 env/
 scanner_module2.py
 __pycache__/
+venv/
