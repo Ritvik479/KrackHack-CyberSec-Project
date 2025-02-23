@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-from scanner_module import scan_file
-# from check_file import check_file
+import hashlib
+from check_file import file_check, calculate_file_hash  # Import only file_check function
 
 app = Flask(__name__)
 
@@ -27,16 +27,18 @@ def scan():
 
     file_data = file.read()  # Read file into memory
 
-    # Scan the file using pefile
-    result = scan_file(file_data)
-    
-    # Scan the file using hashfile
-    # hash_result = check_file(file_data)
+    # Compute file hash
+    file_hash = calculate_file_hash(file_data)
 
-    """if hash_result is true,
-    the file is malicious"""
-    
-    return jsonify({"result": result})
+    # Check if hash is in malware database
+    is_malicious = file_check(file_hash)
+
+    # Return JSON response with hash details
+    return jsonify({
+        "file": file.filename,
+        "hash": file_hash,
+        "status": "⚠ Malicious file detected!" if is_malicious else "✅ File appears safe."
+    })
 
 if __name__ == "__main__":
     app.run(debug=True)

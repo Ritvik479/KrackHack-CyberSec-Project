@@ -1,5 +1,5 @@
 import hashlib
-from app import re
+
 def calculate_file_hash(file_path):
     try:
         hasher = hashlib.sha256()
@@ -23,7 +23,7 @@ def check_is_malicious(file_path, known_hashes):
     except Exception as e:
         print(f"Error scanning {file_path}: {e}")
 
-def check_file(file_to_scan):
+def file_check(file_to_scan):
     counter = 1
     while counter <= 6:
         file_ = open(f"Malware-Hash-Database\\SHA256\\sha256_hashes_{counter}.txt","r")
