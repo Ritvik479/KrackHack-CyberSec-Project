@@ -1,6 +1,7 @@
 # Overview
 
 This project is a web-based malware scanner that utilizes YARA rules and file hash checks to identify potentially malicious files. It features a cyberpunk-themed dark mode and a user-friendly interface for uploading and scanning files. 
+
 Our team of four created this project in the short span of 2 days for the **KrackHack Hackathon** organised by **GDG IIT Mandi**. We are glad to have gotten this chance to learn and innovate in this fascinating field of cybersecurity.
 
 ## Problem Statement
@@ -90,4 +91,5 @@ We intend to scale the website to include detection of more malware and file typ
 - Saurabh Gopal
 - Himank Arora
 - Jashnoor Singh
-  (All students from IIT Mandi)
+
+(All students from IIT Mandi)
