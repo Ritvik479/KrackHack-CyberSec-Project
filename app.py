@@ -30,12 +30,14 @@ def scan():
     temp_file_path = os.path.join("uploads", file.filename)
     file.save(temp_file_path)
 
-    # Compute file hash
-    file_data = file.read()  # Read file into memory
-    file_hash = calculate_file_hash(file_data)
+    # Compute file hash using the temporary file path
+    file_hash = calculate_file_hash(temp_file_path)
+    if file_hash is None:
+        os.remove(temp_file_path)
+        return jsonify({"result": "⚠ Error calculating file hash."}), 500
 
-    # Check if hash is in malware database
-    is_malicious_hash = file_check(file_hash)
+    # Check if hash is in malware database using file_check
+    is_malicious_hash = file_check(temp_file_path)
 
     # Check if file matches YARA rules
     yara_result = scan_file(temp_file_path)
@@ -44,7 +46,7 @@ def scan():
     os.remove(temp_file_path)
 
     # Determine the overall status based on both checks
-    if is_malicious_hash or "Malware detected" in yara_result:
+    if is_malicious_hash or ("Malware detected" in yara_result):
         status = "⚠ Malicious file detected!"
     else:
         status = "✅ File appears safe."
